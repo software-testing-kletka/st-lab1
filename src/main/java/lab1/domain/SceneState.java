@@ -2,13 +2,19 @@ package lab1.domain;
 
 import java.util.List;
 
-/**
- * Final state snapshot for the reproduced text scene.
- */
+
 public record SceneState(
         Catalog catalog,
-        List<Character> characters,
+        List<Person> people,
         ReceptionRoom receptionRoom,
         Magrathean magrathean
 ) {
+    public static SceneState after(
+            Catalog catalog,
+            List<Person> people,
+            ReceptionRoom receptionRoom,
+            Magrathean magrathean
+    ) {
+        return new SceneState(catalog, List.copyOf(people), receptionRoom, magrathean);
+    }
 }

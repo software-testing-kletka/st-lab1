@@ -11,10 +11,10 @@ class SceneServiceTest {
     private final SceneService sceneService = new SceneService();
 
     @Test
-    void charactersTransitionToRealWorldAfterLastPlanetDisappears() {
+    void sceneWorldTransitionTest() {
         Catalog catalog = new Catalog(List.of(new Planet("Magrathea")));
-        Character arthur = new Character("Arthur", World.CATALOG);
-        Character ford = new Character("Ford", World.CATALOG);
+        Person arthur = new Person("Arthur", World.CATALOG);
+        Person ford = new Person("Ford", World.CATALOG);
         ReceptionRoom room = new ReceptionRoom(2, 2, 2);
         Magrathean magrathean = new Magrathean("Magrathean", World.CATALOG);
 
@@ -25,20 +25,20 @@ class SceneServiceTest {
     }
 
     @Test
-    void receptionRoomContainsPlushFurnitureGlassTablesAndAwards() {
+    void sceneRoomContentsTest() {
         ReceptionRoom room = new ReceptionRoom(3, 2, 4);
 
         assertEquals(3, room.getFurniture().size());
         assertEquals(2, room.getTables().size());
         assertEquals(4, room.getAwards().size());
-        assertTrue(room.getFurniture().stream().allMatch(f -> "plush".equals(f.upholstery())));
-        assertTrue(room.getTables().stream().allMatch(t -> "glass".equals(t.material())));
+        assertTrue(room.getFurniture().stream().allMatch("plush"::equals));
+        assertTrue(room.getTables().stream().allMatch("glass"::equals));
     }
 
     @Test
-    void magratheanCanStandBeforeCharactersAndIsTall() {
-        Character arthur = new Character("Arthur", World.REAL_WORLD);
-        Character ford = new Character("Ford", World.REAL_WORLD);
+    void sceneMagratheanStateTest() {
+        Person arthur = new Person("Arthur", World.REAL_WORLD);
+        Person ford = new Person("Ford", World.REAL_WORLD);
         Magrathean magrathean = new Magrathean("Guide", World.REAL_WORLD);
 
         magrathean.standBefore(List.of(arthur, ford));
@@ -48,11 +48,11 @@ class SceneServiceTest {
     }
 
     @Test
-    void endToEndSceneFromTextIsReproduced() {
+    void sceneEndToEndTest() {
         Catalog catalog = new Catalog(List.of(new Planet("Last planet")));
-        Character arthur = new Character("Arthur", World.CATALOG);
-        Character ford = new Character("Ford", World.CATALOG);
-        List<Character> protagonists = List.of(arthur, ford);
+        Person arthur = new Person("Arthur", World.CATALOG);
+        Person ford = new Person("Ford", World.CATALOG);
+        List<Person> protagonists = List.of(arthur, ford);
         ReceptionRoom room = new ReceptionRoom(5, 3, 4);
         Magrathean magrathean = new Magrathean("Magrathean", World.CATALOG);
 
@@ -64,8 +64,8 @@ class SceneServiceTest {
         assertEquals(room, arthur.getCurrentRoom());
         assertEquals(room, ford.getCurrentRoom());
         assertTrue(room.isPacked());
-        assertTrue(room.getFurniture().stream().allMatch(f -> "plush".equals(f.upholstery())));
-        assertTrue(room.getTables().stream().allMatch(t -> "glass".equals(t.material())));
+        assertTrue(room.getFurniture().stream().allMatch("plush"::equals));
+        assertTrue(room.getTables().stream().allMatch("glass"::equals));
         assertTrue(magrathean.isTall());
         assertEquals(protagonists, magrathean.getStandingBefore());
     }

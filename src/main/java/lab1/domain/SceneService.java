@@ -2,39 +2,39 @@ package lab1.domain;
 
 import java.util.List;
 
-/**
- * Service that reproduces the scene from the text fragment.
- */
+
 public class SceneService {
 
-    /**
-     * Reproduces sequence:
-     * 1) last catalog planet disappears
-     * 2) characters end up in real world
-     * 3) characters are in reception room
-     * 4) tall magrathean stands before them
-     */
-    public SceneState playScene(
+    public SceneState play(
             Catalog catalog,
-            List<Character> characters,
+            List<Person> people,
             ReceptionRoom receptionRoom,
             Magrathean magrathean
     ) {
-        if (catalog == null || characters == null || receptionRoom == null || magrathean == null) {
+        if (catalog == null || people == null || receptionRoom == null || magrathean == null) {
             throw new IllegalArgumentException("Scene arguments must not be null.");
         }
 
         catalog.removeLastPlanet();
 
-        for (Character character : characters) {
-            character.moveToWorld(World.REAL_WORLD);
-            character.enterReceptionRoom(receptionRoom);
+        for (Person person : people) {
+            person.moveToWorld(World.REAL_WORLD);
+            person.enterReceptionRoom(receptionRoom);
         }
 
         magrathean.moveToWorld(World.REAL_WORLD);
         magrathean.enterReceptionRoom(receptionRoom);
-        magrathean.standBefore(characters);
+        magrathean.standBefore(people);
 
-        return new SceneState(catalog, List.copyOf(characters), receptionRoom, magrathean);
+        return SceneState.after(catalog, people, receptionRoom, magrathean);
+    }
+
+    public SceneState playScene(
+            Catalog catalog,
+            List<Person> people,
+            ReceptionRoom receptionRoom,
+            Magrathean magrathean
+    ) {
+        return play(catalog, people, receptionRoom, magrathean);
     }
 }

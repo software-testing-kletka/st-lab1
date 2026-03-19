@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 class DomainValidationTest {
 
     @Test
-    void cannotCreatePlanetWithBlankName() {
+    void planetBlankNameTest() {
         assertThrows(IllegalArgumentException.class, () -> new Planet(" "));
     }
 
     @Test
-    void cannotCreateCharacterWithBlankName() {
-        assertThrows(IllegalArgumentException.class, () -> new Character("", World.CATALOG));
+    void personBlankNameTest() {
+        assertThrows(IllegalArgumentException.class, () -> new Person("", World.CATALOG));
     }
 
     @Test
-    void cannotCreateReceptionRoomWithNegativeObjectCounts() {
+    void roomNegativeCountsTest() {
         assertThrows(IllegalArgumentException.class, () -> new ReceptionRoom(-1, 1, 1));
         assertThrows(IllegalArgumentException.class, () -> new ReceptionRoom(1, -1, 1));
         assertThrows(IllegalArgumentException.class, () -> new ReceptionRoom(1, 1, -1));

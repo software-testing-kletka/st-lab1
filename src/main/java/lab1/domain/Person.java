@@ -1,20 +1,17 @@
 package lab1.domain;
 
-/**
- * Character participating in scene events.
- */
-public class Character {
+public class Person {
 
     private final String name;
     private World currentWorld;
     private ReceptionRoom currentRoom;
 
-    public Character(String name, World currentWorld) {
+    public Person(String name, World currentWorld) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Character name must not be blank.");
+            throw new IllegalArgumentException("Person name must not be blank.");
         }
         if (currentWorld == null) {
-            throw new IllegalArgumentException("Character world must not be null.");
+            throw new IllegalArgumentException("Person world must not be null.");
         }
         this.name = name;
         this.currentWorld = currentWorld;

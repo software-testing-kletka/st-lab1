@@ -3,9 +3,7 @@ package lab1.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Catalog containing planets.
- */
+
 public class Catalog {
 
     private final List<Planet> planets;

@@ -3,31 +3,42 @@ package lab1.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Magrathean character standing before others.
- */
-public class Magrathean extends Character {
 
-    private final boolean tall;
-    private List<Character> standingBefore = List.of();
+public class Magrathean extends Person {
+
+    private static final int TALL_THRESHOLD_CM = 185;
+
+    private final int heightCm;
+    private List<Person> standingBefore = List.of();
 
     public Magrathean(String name, World currentWorld) {
+        this(name, currentWorld, 196);
+    }
+
+    public Magrathean(String name, World currentWorld, int heightCm) {
         super(name, currentWorld);
-        this.tall = true;
+        if (heightCm <= 0) {
+            throw new IllegalArgumentException("Height must be positive.");
+        }
+        this.heightCm = heightCm;
     }
 
     public boolean isTall() {
-        return tall;
+        return heightCm >= TALL_THRESHOLD_CM;
     }
 
-    public void standBefore(List<Character> others) {
+    public int getHeightCm() {
+        return heightCm;
+    }
+
+    public void standBefore(List<Person> others) {
         if (others == null) {
-            throw new IllegalArgumentException("Characters list must not be null.");
+            throw new IllegalArgumentException("People list must not be null.");
         }
         this.standingBefore = List.copyOf(new ArrayList<>(others));
     }
 
-    public List<Character> getStandingBefore() {
+    public List<Person> getStandingBefore() {
         return List.copyOf(standingBefore);
     }
 }

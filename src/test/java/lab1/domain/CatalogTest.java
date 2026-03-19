@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class CatalogTest {
 
     @Test
-    void onePlanetCatalogBecomesEmptyAfterRemovingLast() {
+    void catalogOnePlanetTest() {
         Catalog catalog = new Catalog(List.of(new Planet("Last")));
 
         catalog.removeLastPlanet();
@@ -19,7 +19,7 @@ class CatalogTest {
     }
 
     @Test
-    void removingLastPlanetReducesSize() {
+    void catalogRemoveLastTest() {
         Catalog catalog = new Catalog(List.of(new Planet("A"), new Planet("B")));
 
         catalog.removeLastPlanet();
@@ -28,7 +28,7 @@ class CatalogTest {
     }
 
     @Test
-    void removingLastPlanetFromEmptyCatalogThrows() {
+    void catalogEmptyThrowTest() {
         Catalog catalog = new Catalog(List.of());
 
         assertThrows(IllegalStateException.class, catalog::removeLastPlanet);

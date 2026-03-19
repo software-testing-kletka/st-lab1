@@ -12,43 +12,43 @@ class QuickSortTest {
     private final QuickSort quickSort = new QuickSort();
 
     @Test
-    void sortsEmptyArray() {
-        assertSortedAndSameElements(new int[]{});
+    void qsEmptyTest() {
+        assertMySortedAndNormSort(new int[]{});
     }
 
     @Test
-    void sortsSingleElementArray() {
-        assertSortedAndSameElements(new int[]{42});
+    void qsSingleElementTest() {
+        assertMySortedAndNormSort(new int[]{42});
     }
 
     @Test
-    void sortsAlreadySortedArray() {
-        assertSortedAndSameElements(new int[]{1, 2, 3, 4, 5});
+    void qsAlreadySortedTest() {
+        assertMySortedAndNormSort(new int[]{1, 2, 3, 4, 5});
     }
 
     @Test
-    void sortsReverseOrderArray() {
-        assertSortedAndSameElements(new int[]{5, 4, 3, 2, 1});
+    void qsEeverseTest() {
+        assertMySortedAndNormSort(new int[]{5, 4, 3, 2, 1});
     }
 
     @Test
-    void sortsRandomOrderArray() {
-        assertSortedAndSameElements(new int[]{7, 1, 9, 3, 8, 2, 6, 5, 4});
+    void qsNormTest() {
+        assertMySortedAndNormSort(new int[]{7, 1, 9, 3, 8, 2, 6, 5, 4});
     }
 
     @Test
-    void sortsArrayWithDuplicates() {
-        assertSortedAndSameElements(new int[]{3, 1, 2, 3, 2, 1, 3, 2});
+    void qsDupSortTest() {
+        assertMySortedAndNormSort(new int[]{3, 1, 2, 3, 2, 1, 3, 2});
     }
 
     @Test
-    void sortsArrayWithAllEqualElements() {
-        assertSortedAndSameElements(new int[]{5, 5, 5, 5, 5, 5});
+    void qsEqualElementsTest() {
+        assertMySortedAndNormSort(new int[]{5, 5, 5, 5, 5, 5});
     }
 
     @Test
-    void sortsArrayWithNegativeAndPositiveValues() {
-        assertSortedAndSameElements(new int[]{0, -10, 4, -3, 8, -1, 2, 7, -5});
+    void qsNegativeValTest() {
+        assertMySortedAndNormSort(new int[]{0, -10, 4, -3, 8, -1, 2, 7, -5});
     }
 
     @Test
@@ -56,7 +56,7 @@ class QuickSortTest {
         assertThrows(IllegalArgumentException.class, () -> quickSort.sort(null));
     }
 
-    private void assertSortedAndSameElements(int[] input) {
+    private void assertMySortedAndNormSort(int[] input) {
         int[] actual = Arrays.copyOf(input, input.length);
         int[] expected = Arrays.copyOf(input, input.length);
         Arrays.sort(expected);
@@ -64,10 +64,10 @@ class QuickSortTest {
         quickSort.sort(actual);
 
         assertArrayEquals(expected, actual, "Sorted array must match expected order");
-        assertTrue(isSortedAscending(actual), "Array must be sorted in ascending order");
+        assertTrue(isSorted(actual), "Array must be sorted in ascending order");
     }
 
-    private boolean isSortedAscending(int[] array) {
+    private boolean isSorted(int[] array) {
         for (int i = 1; i < array.length; i++) {
             if (array[i - 1] > array[i]) {
                 return false;

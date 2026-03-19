@@ -16,38 +16,38 @@ class SecSeriesCalculatorTest {
     private final SecSeriesCalculator calculator = new SecSeriesCalculator();
 
     @Test
-    void secAtZeroIsOne() {
+    void secZeroTest() {
         double result = calculator.sec(0.0, NORMAL_EPS);
         assertEquals(1.0, result, STRICT_DELTA);
     }
 
     @ParameterizedTest
     @ValueSource(doubles = {0.001, 0.01, -0.001, -0.01})
-    void secForSmallArgumentsMatchesReference(double x) {
+    void secSmallTest(double x) {
         double expected = 1.0 / Math.cos(x);
         double actual = calculator.sec(x, NORMAL_EPS);
         assertEquals(expected, actual, STRICT_DELTA);
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {-0.8, -0.5, -0.2, 0.2, 0.5, 0.8, 1.0})
-    void secInsideWorkingDomainMatchesReference(double x) {
+    @ValueSource(doubles = {-0.8, -0.5, -0.3, -0.2, 0.2, 0.3, 0.5, 0.8, 1.0})
+    void secNormTest(double x) {
         double expected = 1.0 / Math.cos(x);
         double actual = calculator.sec(x, NORMAL_EPS);
         assertEquals(expected, actual, STRICT_DELTA);
     }
 
     @Test
-    void secNearDomainBoundaryStillAccurate() {
-        double x = SecSeriesCalculator.MAX_SUPPORTED_ABS_X - 1.0e-6;
+    void secCloseLimTest() {
+        double x = SecSeriesCalculator.SEC_LIMIT - 1.0e-6;
         double expected = 1.0 / Math.cos(x);
         double actual = calculator.sec(x, NORMAL_EPS);
         assertEquals(expected, actual, STRICT_DELTA);
     }
 
     @Test
-    void secAtExactDomainBoundaryIsAccurate() {
-        double x = SecSeriesCalculator.MAX_SUPPORTED_ABS_X;
+    void secLimTest() {
+        double x = SecSeriesCalculator.SEC_LIMIT;
         double expected = 1.0 / Math.cos(x);
         double actual = calculator.sec(x, NORMAL_EPS);
         assertEquals(expected, actual, STRICT_DELTA);
@@ -59,15 +59,14 @@ class SecSeriesCalculatorTest {
             "0.7, 1.0E-8, 1.0E-6",
             "0.7, 1.0E-3, 3.0E-3"
     })
-    void secSupportsDifferentPrecisionThresholds(double x, double eps, double allowedDelta) {
-        // allowedDelta is scaled with eps to reflect expected truncation accuracy.
+    void secPorogTest(double x, double eps, double allowedDelta) {
         double expected = 1.0 / Math.cos(x);
         double actual = calculator.sec(x, eps);
         assertEquals(expected, actual, allowedDelta);
     }
 
     @Test
-    void secIsEvenFunctionWithinTolerance() {
+    void secSmallEmpsTest() {
         double x = 0.9;
         double positive = calculator.sec(x, VERY_SMALL_EPS);
         double negative = calculator.sec(-x, VERY_SMALL_EPS);
@@ -75,43 +74,43 @@ class SecSeriesCalculatorTest {
     }
 
     @Test
-    void rejectsZeroEps() {
+    void rejectsZeroEpsTest() {
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(0.1, 0.0));
     }
 
     @Test
-    void rejectsNegativeEps() {
+    void rejectsNegativeEpsTest() {
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(0.1, -1.0e-6));
     }
 
     @Test
-    void rejectsNanX() {
+    void rejectsNanXTest() {
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(Double.NaN, NORMAL_EPS));
     }
 
     @Test
-    void rejectsInfiniteX() {
+    void rejectsInfiniteXTest() {
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(Double.POSITIVE_INFINITY, NORMAL_EPS));
     }
 
     @Test
-    void rejectsPiOverTwoBecauseItIsOutsideConfiguredDomain() {
+    void rejectsPiIsBigTest() {
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(Math.PI / 2.0, NORMAL_EPS));
     }
 
     @Test
-    void rejectsValueTooCloseToConfiguredBoundary() {
-        double outside = SecSeriesCalculator.MAX_SUPPORTED_ABS_X + 1.0e-9;
+    void rejectsValueCloseLimButNotInTest() {
+        double outside = SecSeriesCalculator.SEC_LIMIT + 1.0e-9;
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(outside, NORMAL_EPS));
     }
 
     @Test
-    void rejectsNanEps() {
+    void rejectsNanEpsTest() {
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(0.2, Double.NaN));
     }
 
     @Test
-    void rejectsInfiniteEps() {
+    void rejectsInfiniteEpsTest() {
         assertThrows(IllegalArgumentException.class, () -> calculator.sec(0.2, Double.POSITIVE_INFINITY));
     }
 }
