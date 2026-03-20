@@ -28,9 +28,30 @@ class CatalogTest {
     }
 
     @Test
+    void catalogPlanetsSizeTest() {
+        List<Planet> planetList = List.of(new Planet("A"), new Planet("B"));
+        Catalog catalog = new Catalog(planetList);
+
+        assertEquals(2, catalog.size());
+    }
+
+    @Test
+    void catalogPlanetsGetTest() {
+        List<Planet> planetList = List.of(new Planet("A"), new Planet("B"));
+        Catalog catalog = new Catalog(planetList);
+
+        assertEquals(planetList, catalog.getPlanets());
+    }
+
+    @Test
     void catalogEmptyThrowTest() {
         Catalog catalog = new Catalog(List.of());
 
         assertThrows(IllegalStateException.class, catalog::removeLastPlanet);
+    }
+
+    @Test
+    void catalogNoPlanetsThrowTest() {
+        assertThrows(IllegalArgumentException.class, () -> new Catalog(null));
     }
 }
