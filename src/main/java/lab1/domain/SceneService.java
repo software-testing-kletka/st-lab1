@@ -12,7 +12,7 @@ public class SceneService {
             Magrathean magrathean
     ) {
         if (catalog == null || people == null || receptionRoom == null || magrathean == null) {
-            throw new IllegalArgumentException("Scene arguments must not be null.");
+            throw new IllegalArgumentException("Аргументы схемы не могут быть null");
         }
 
         catalog.removeLastPlanet();

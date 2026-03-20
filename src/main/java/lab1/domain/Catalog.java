@@ -10,7 +10,7 @@ public class Catalog {
 
     public Catalog(List<Planet> planets) {
         if (planets == null) {
-            throw new IllegalArgumentException("Planets list must not be null.");
+            throw new IllegalArgumentException("Список планет не может быть null.");
         }
         this.planets = new ArrayList<>(planets);
     }
@@ -25,7 +25,7 @@ public class Catalog {
 
     public void removeLastPlanet() {
         if (planets.isEmpty()) {
-            throw new IllegalStateException("Cannot remove planet from an empty catalog.");
+            throw new IllegalStateException("Удаление планеты из пустого каталога");
         }
         planets.remove(planets.size() - 1);
     }

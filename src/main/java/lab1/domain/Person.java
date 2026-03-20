@@ -8,10 +8,10 @@ public class Person {
 
     public Person(String name, World currentWorld) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Person name must not be blank.");
+            throw new IllegalArgumentException("Имя пользователя должно быть. :)");
         }
         if (currentWorld == null) {
-            throw new IllegalArgumentException("Person world must not be null.");
+            throw new IllegalArgumentException("Мир персонажа не null");
         }
         this.name = name;
         this.currentWorld = currentWorld;
@@ -31,14 +31,14 @@ public class Person {
 
     public void moveToWorld(World world) {
         if (world == null) {
-            throw new IllegalArgumentException("World must not be null.");
+            throw new IllegalArgumentException("Мир не может быть null");
         }
         this.currentWorld = world;
     }
 
     public void enterReceptionRoom(ReceptionRoom room) {
         if (room == null) {
-            throw new IllegalArgumentException("Room must not be null.");
+            throw new IllegalArgumentException("Комната не может быть null");
         }
         this.currentRoom = room;
     }

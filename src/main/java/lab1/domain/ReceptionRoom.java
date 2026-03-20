@@ -12,7 +12,7 @@ public class ReceptionRoom {
 
     public ReceptionRoom(int furnitureCount, int tableCount, int awardCount) {
         if (furnitureCount < 0 || tableCount < 0 || awardCount < 0) {
-            throw new IllegalArgumentException("Object counts in room must be non-negative.");
+            throw new IllegalArgumentException("Количество объектов в комнате > 0");
         }
         this.furniture = new ArrayList<>(furnitureCount);
         for (int i = 0; i < furnitureCount; i++) {
