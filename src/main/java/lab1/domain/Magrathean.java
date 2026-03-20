@@ -27,10 +27,6 @@ public class Magrathean extends Person {
         return heightCm >= TALL_METRIC;
     }
 
-    public int getHeightCm() {
-        return heightCm;
-    }
-
     public void standBefore(List<Person> others) {
         if (others == null) {
             throw new IllegalArgumentException("Список людей не должен быть null");
